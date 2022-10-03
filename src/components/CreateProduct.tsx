@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   addProduct,
   getCategory,
-  showForm,
   CategotyObj, 
   FormData
 } from "../features/ProductSlice";
@@ -18,7 +17,6 @@ const CreateProduct = () => {
   const handelSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(addProduct(formData));
-    dispatch(showForm(false));
   };
 
   useEffect(() => {

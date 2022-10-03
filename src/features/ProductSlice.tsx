@@ -41,7 +41,6 @@ export type InitialState = {
   favProduct: ProductObj[] | [];
   categories: CategotyObj[] | [];
   isLoading: boolean;
-  toggleForm: boolean;
   indiviProd: ProductObj[] | [];
 };
 
@@ -50,51 +49,33 @@ const initialState: InitialState = {
   favProduct: [],
   categories: [],
   isLoading: false,
-  toggleForm: false,
   indiviProd: [],
 };
 
-export const getProduct = createAsyncThunk(
-  "product/getProduct",
-  async () => {
-    var config = {
-      method: 'get',
-      url: 'https://upayments-studycase-api.herokuapp.com/api/products/',
-      headers: { 
-        '': '', 
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp5bnB5c3I2N0BnbWFpbC5jb20iLCJnaXRodWIiOiJodHRwczovL2dpdGh1Yi5jb20vemV5YXNhciIsImlhdCI6MTY2NDU2NTAzMCwiZXhwIjoxNjY0OTk3MDMwfQ.Je7E_t-Ii-ST_z4TlEkH6Nzw76VK081tuveXuKEmpuQ'
-      },
-    };
-    
-  await axios(config)
-    .then(function (response) {
-      console.log(response.status)
-      return response.data.products;
-    })
-    .catch(function (error) {
-      return error.message;
-    });   
-  });
+export const getProduct = createAsyncThunk("product/getProduct", async () => {
+  var config = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp5bnB5c3I2N0BnbWFpbC5jb20iLCJnaXRodWIiOiJodHRwczovL2dpdGh1Yi5jb20vemV5YXNhciIsImlhdCI6MTY2NDU2NTAzMCwiZXhwIjoxNjY0OTk3MDMwfQ.Je7E_t-Ii-ST_z4TlEkH6Nzw76VK081tuveXuKEmpuQ",
+    },
+  };
 
-export const getCategory = createAsyncThunk(
-  "product/getCategory",
-  async (data, thunkApi) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    };
-    try {
-      const res = await axios.get<ProductArr[]>(
-        "https://upayments-studycase-api.herokuapp.com/api/categories",
-        config
-      );
-      return res.data;
-    } catch (error: any) {
-      return thunkApi.rejectWithValue(error.massage);
-    }
-  }
-);
+  const res = await axios.get("https://upayments-studycase-api.herokuapp.com/api/products/" ,config);
+  return res.data;
+});
+
+export const getCategory = createAsyncThunk("product/getCategory", async () => {
+  var config = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp5bnB5c3I2N0BnbWFpbC5jb20iLCJnaXRodWIiOiJodHRwczovL2dpdGh1Yi5jb20vemV5YXNhciIsImlhdCI6MTY2NDU2NTAzMCwiZXhwIjoxNjY0OTk3MDMwfQ.Je7E_t-Ii-ST_z4TlEkH6Nzw76VK081tuveXuKEmpuQ",
+    },
+  };
+
+  const res = await axios.get("https://upayments-studycase-api.herokuapp.com/api/categories" ,config);
+  return res.data;
+});
+
 export const toggleCategory = createAsyncThunk(
   "product/toggleCategory",
   async (cat: string) => {
@@ -121,35 +102,34 @@ export const addProduct = createAsyncThunk(
         Authorization: `Bearer ${authToken}`,
       },
     };
-    await axios.post<ProductArr[]>(
+    await axios
+      .post<ProductArr[]>(
         "https://upayments-studycase-api.herokuapp.com/api/products",
         obj,
         config
       )
-      .then((res)=>{
+      .then((res) => {
         return res.data;
       })
-      
-    .catch((err)=>{
-      console.log(err.message);
-    })
+
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 );
 export const getIndiProduct = createAsyncThunk(
   "product/getIndiProduct",
   async (id: any) => {
-    const config: object = {
+    var config = {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp5bnB5c3I2N0BnbWFpbC5jb20iLCJnaXRodWIiOiJodHRwczovL2dpdGh1Yi5jb20vemV5YXNhciIsImlhdCI6MTY2NDU2NTAzMCwiZXhwIjoxNjY0OTk3MDMwfQ.Je7E_t-Ii-ST_z4TlEkH6Nzw76VK081tuveXuKEmpuQ",
       },
     };
-    try {
-      const res = await axios.get<ProductArr[]>(
-        `https://upayments-studycase-api.herokuapp.com/api/products/${id}`,
-        config
-      );
-      return res.data;
-    } catch (error: any) {}
+  
+    const res = await axios.get(`https://upayments-studycase-api.herokuapp.com/api/products/${id}` ,config);
+    // console.log(res)
+    return res.data;
   }
 );
 
@@ -163,17 +143,14 @@ export const productSlice = createSlice({
       });
       state.productList = newDat;
     },
-    addTofavrites: (state, action: PayloadAction<ProductObj>) => {
+    addFavorite: (state, action: PayloadAction<ProductObj>) => {
       state.favProduct = [...state.favProduct, action.payload];
     },
-    removeFromFavrites: (state, action: PayloadAction<string>) => {
+    removeFavorite: (state, action: PayloadAction<string>) => {
       const newData = state.favProduct.filter((elem) => {
         return elem._id !== action.payload;
       });
       state.favProduct = newData;
-    },
-    showForm: (state, action: PayloadAction<any>) => {
-      state.toggleForm = action.payload;
     },
   },
   extraReducers(builder) {
@@ -182,8 +159,8 @@ export const productSlice = createSlice({
     });
     builder.addCase(
       getProduct.fulfilled,
-      (state, action: PayloadAction<any>) => {
-        state.productList = [...action.payload.products];
+      (state, action) => {
+        state.productList = action.payload.products
         state.isLoading = false;
       }
     );
@@ -258,13 +235,13 @@ export const productSlice = createSlice({
     );
     builder.addCase(
       getIndiProduct.pending,
-      (state, action: PayloadAction<any>) => {
+      (state) => {
         state.isLoading = true;
       }
     );
     builder.addCase(
       getIndiProduct.fulfilled,
-      (state, action: PayloadAction<any>) => {
+      (state, action) => {
         state.indiviProd = [action.payload.product];
         state.isLoading = false;
       }
@@ -277,6 +254,7 @@ export const productSlice = createSlice({
     );
   },
 });
+
 export default productSlice.reducer;
-export const { deleteProduct, addTofavrites, showForm, removeFromFavrites } =
+export const { deleteProduct, addFavorite, removeFavorite } =
   productSlice.actions;

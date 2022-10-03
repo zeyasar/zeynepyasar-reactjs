@@ -22,9 +22,7 @@ const Navbar = () => {
         <div className="right flex flex-1 items-center justify-end">
           <div className="text-sm cursor-pointer ml-3" onClick={()=> navigate('/')}>Home</div>
           <div className="text-sm cursor-pointer ml-3" onClick={()=> navigate('/addproduct')}>Add New Product</div>
-
-          <div className="text-sm cursor-pointer ml-3">
-          </div>
+          <div className="text-sm cursor-pointer ml-3" onClick={()=> navigate('/favoriteproduct')}>Favorite Product</div>
         </div>
       </div>
     </div>

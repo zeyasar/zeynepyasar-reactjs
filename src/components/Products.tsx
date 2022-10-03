@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import loadingGif from '../assets/loading.gif'
-import { getProduct } from "../features/ProductSlice";
+import { addFavorite, getProduct, ProductObj } from "../features/ProductSlice";
 
 const Products = () => {
     const navigate = useNavigate()
@@ -22,10 +22,13 @@ const Products = () => {
     const dispatch = useAppDispatch();
     const productList = useAppSelector((state) => state.product.productList);
     const isLoading = useAppSelector((state) => state.product.isLoading);
+    const favProduct = useAppSelector((state) => state.product.favProduct);
+
     const productInfoNavigator = (id: string) => {
       navigate(`/details/${id}`);
     };
-    console.log(productList)
+    // console.log(productList)
+    // console.log(favProduct)
     useEffect(() => {
       dispatch(getProduct());
       // dispatch(getCategory());
@@ -38,15 +41,16 @@ const Products = () => {
     return (
       <>
       {isLoading ?(
+        <div className="flex justify-center items-center content-center">
         <img
         src={loadingGif}
-        className="w-full"
         alt="img"
       />
+      </div>
       ) :
       
       (<div className="p-5 flex flex-wrap">
-        {productList.map((product, index) => (
+        {productList.map((product: ProductObj, index) => (
           <div key={index}
             className="flex items-center justify-center flex-1 min-w-[280px] min-h-[350px] m-2 overflow-hidden rounded-md shadow-lg relative"
             onMouseEnter={handleHoverEnter}
@@ -63,7 +67,7 @@ const Products = () => {
                 <ShoppingCartOutlined/>
               </div>
               <div className={iconStyle}>
-                <button onClick={() => dispatch(addTofavrites(product))}>
+                <button onClick={() => dispatch(addFavorite(product))}>
                 <FavoriteBorderOutlined/>
                 </button>
               </div>

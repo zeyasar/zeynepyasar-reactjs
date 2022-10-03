@@ -1,26 +1,27 @@
-import React from "react";
-import allCategories from '../assets/all.jpg'
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import place from '../assets/placeholder-image.png'
-// import { useAppDispatch, useAppSelector } from "../app/hooks";
-// import { useNavigate } from "react-router-dom";
+import { getCategory } from "../features/ProductSlice";
+
 
 
 
 const Categories = () => {
 
-  // const dispatch = useAppDispatch();
-  // const productList = useAppSelector((state) => state.product.products);
-  // const categories = useAppSelector((state) => state.product.category);
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector((state) => state.product.categories);
  
-  // const navigate = useNavigate();
- 
+  useEffect(() => {
+    dispatch(getCategory());
+  }, [dispatch]);
+//  console.log(categories)
     
 
   return (
     <div className="grid grid-cols-5  p-5 mobile:flex-col">
-      <button onClick={(e)=>console.log(e.target)}>
+      <button>
         <div className="flex-1 m-2 shadow-lg rounded-md overflow-hidden relative">
-          <img src={allCategories} className="w-[100%]" alt="category_img" />
+          <img src={place} className="w-[100%]" alt="category_img" />
           <div className="justify-center">
             <h2 className="font-medium text-m">All Categories</h2>
           </div>

@@ -3,20 +3,32 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getIndiProduct } from '../features/ProductSlice';
 import Navbar from "./Navbar";
+import loadingGif from '../assets/loading.gif'
+
 
 function Details() {
-  
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const indiviProd = useAppSelector((state) => state.product.indiviProd);
+  const isLoading = useAppSelector((state) => state.product.isLoading);
   const product = indiviProd[0];
   useEffect(() => {
     dispatch(getIndiProduct(id));
   }, [dispatch, id]);
-  
+  // console.log(product)
+  // console.log(indiviProd)
+
   return (
     <div>
       <Navbar/>
+      {isLoading ?(
+        <div className="flex justify-center items-center content-center">
+        <img
+        src={loadingGif}
+        alt="img"
+      />
+      </div>
+      ) : (
       <div className="flex justify-center mobile:flex-col mobile:mt-4 mobile:p-3">
         <div className="flex-1 flex items-center justify-center">
           <img
@@ -29,7 +41,7 @@ function Details() {
           <h1 className="title text-[40px] mobile:text-[30px]">
            {product?.name}
           </h1>
-          <p className="font-bold text-lg"> Category :- {product?.category}</p>
+          <p className="font-bold text-lg"> Category : {product?.category}</p>
           <p className="disription pr-[4rem] text-justify mt-4 mobile:pr-0">
           {product?.description}
           </p>
@@ -44,7 +56,9 @@ function Details() {
           </button>
         </div>
       </div>
+       )}
     </div>
+   
   )
 }
 
