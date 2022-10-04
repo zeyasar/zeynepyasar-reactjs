@@ -34,8 +34,8 @@ const CreateProduct = () => {
         className="flex flex-col gap-10 p-10 border border-zinc-900 w-2/4 relative rounded-lg top-36 shadow-2xl"
       >
         <div className="flex lg:flex-row sm:flex-col justify-center items-center gap-10">
-          <p className="font-bold text-2xl bg-green-500 px-2 py-1 border rounded-tl-2xl rounded-br-2xl">
-            New Product Form
+          <p className="font-bold text-2xl px-2 py-1 border rounded-tl-2xl rounded-br-2xl">
+           Add New Product
           </p>
         </div>
         <div className="flex lg:flex-row sm:flex-col justify-between items-center gap-10">

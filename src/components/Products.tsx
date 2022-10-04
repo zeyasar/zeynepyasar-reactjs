@@ -1,9 +1,10 @@
-import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
+import { FavoriteBorderOutlined, SearchOutlined } from "@mui/icons-material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import loadingGif from '../assets/loading.gif'
-import { addFavorite, getProduct, ProductObj } from "../features/ProductSlice";
+import { addFavorite, deleteProduct, getProduct, ProductObj } from "../features/ProductSlice";
 
 const Products = () => {
     const navigate = useNavigate()
@@ -22,7 +23,6 @@ const Products = () => {
     const dispatch = useAppDispatch();
     const productList = useAppSelector((state) => state.product.productList);
     const isLoading = useAppSelector((state) => state.product.isLoading);
-    const favProduct = useAppSelector((state) => state.product.favProduct);
 
     const productInfoNavigator = (id: string) => {
       navigate(`/details/${id}`);
@@ -33,10 +33,6 @@ const Products = () => {
       dispatch(getProduct());
       // dispatch(getCategory());
     }, [dispatch]);
-
-  function addFavorite(elem: any): any {
-    throw new Error("Function not implemented.");
-  }
 
     return (
       <>
@@ -64,7 +60,9 @@ const Products = () => {
               }
             >
               <div className={iconStyle}>
-                <ShoppingCartOutlined/>
+                <button onClick={() => dispatch(deleteProduct(product._id))}>
+                <DeleteIcon />
+                </button>
               </div>
               <div className={iconStyle}>
                 <button onClick={() => dispatch(addFavorite(product))}>
