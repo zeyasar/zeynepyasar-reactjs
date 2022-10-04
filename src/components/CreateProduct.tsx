@@ -43,7 +43,8 @@ const CreateProduct = () => {
             className="border-2  border-sky-400 h-10 rounded-md pl-2 w-full"
             type="text"
             name="name"
-            placeholder="Enter Productname"
+            placeholder="Product name"
+            required
             onChange={(event) =>
               setFormData({ ...formData, name: event.target.value })
             }
@@ -52,7 +53,8 @@ const CreateProduct = () => {
             className="border-2 border-sky-400 h-10 rounded-md pl-2 w-full"
             type="number"
             name="price"
-            placeholder="Enter price"
+            placeholder="Price"
+            required
             onChange={(event) =>
               setFormData({ ...formData, price: event.target.value })
             }
@@ -65,6 +67,7 @@ const CreateProduct = () => {
             name="avatar"
             id=""
             placeholder="Add a avatar url link here..."
+            required
             onChange={(event) =>
               setFormData({ ...formData, avatar: event.target.value })
             }
@@ -73,7 +76,8 @@ const CreateProduct = () => {
           <input
             className="border-2 border-sky-400 h-10 rounded-md pl-2 w-full"
             type="email"
-            placeholder="Enter Email id"
+            placeholder="Email"
+            required
             name="developerEmail"
             id=""
             onChange={(event) =>
@@ -88,6 +92,7 @@ const CreateProduct = () => {
             name="category"
             id=""
             defaultValue={""}
+            required
             onChange={(event) =>
               setFormData({ ...formData, category: event.target.value })
             }
@@ -110,6 +115,7 @@ const CreateProduct = () => {
             cols={30}
             rows={4}
             placeholder="Enter Product Description ..."
+            required
             onChange={(event) =>
               setFormData({ ...formData, description: event.target.value })
             }
