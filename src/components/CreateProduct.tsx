@@ -122,7 +122,7 @@ const CreateProduct = () => {
           ></textarea>
         </div>
         <div className="flex  lg:flex-row sm:flex-col justify-center items-center gap-10 ">
-          <button className="button-34" type={"submit"}>
+          <button className="button-34" type="submit">
             Add Product
           </button>
         </div>
