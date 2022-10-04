@@ -34,7 +34,7 @@ const Products = () => {
       // dispatch(getCategory());
     }, [dispatch]);
 
-  function addTofavrites(elem: any): any {
+  function addFavorite(elem: any): any {
     throw new Error("Function not implemented.");
   }
 
